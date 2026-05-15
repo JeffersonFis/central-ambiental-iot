@@ -20,7 +20,7 @@ body{
     padding:0;
     background:#0b1220;
     color:white;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 header{
@@ -43,108 +43,168 @@ header{
 .cards{
 
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
     gap:20px;
 }
 
 .card{
 
     background:#121b2e;
+
     border-radius:20px;
+
     padding:20px;
-    box-shadow:0 0 20px rgba(0,0,0,0.4);
+
+    box-shadow:
+    0 0 20px rgba(0,0,0,0.4);
+
     text-align:center;
 }
 
 .card h2{
 
     margin:0;
+
     font-size:18px;
+
     color:#8ca6db;
 }
 
 .valor{
 
     font-size:42px;
+
     margin-top:15px;
+
     font-weight:bold;
 }
 
 .historico{
 
     margin-top:20px;
+
     text-align:left;
+
     font-size:14px;
+
     color:#b8c7e0;
+
     line-height:1.8;
 }
 
 .status{
 
     margin-top:30px;
-    display:flex;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
     gap:20px;
-    flex-wrap:wrap;
 }
 
 .statusBox{
 
-    flex:1;
-    min-width:220px;
     background:#121b2e;
+
     border-radius:20px;
+
     padding:20px;
+
     text-align:center;
 }
 
 .online{
 
     color:#00ff88;
+
     font-weight:bold;
 }
 
 .offline{
 
-    color:red;
+    color:#ff4d4d;
+
     font-weight:bold;
+}
+
+.ledLigado{
+
+    color:#00ff88;
+
+    font-weight:bold;
+}
+
+.ledDesligado{
+
+    color:#ff4d4d;
+
+    font-weight:bold;
+}
+
+button{
+
+    background:#1d8cf8;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    margin-top:15px;
+
+    font-size:16px;
+
+    width:100%;
+}
+
+button:hover{
+
+    opacity:0.8;
 }
 
 .graficos{
 
     margin-top:30px;
+
     display:grid;
-    grid-template-columns:1fr;
-    gap:30px;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
 }
 
 .graficoBox{
 
     background:#121b2e;
+
     border-radius:20px;
+
     padding:20px;
 }
 
 canvas{
 
     width:100% !important;
-    height:350px !important;
+
+    height:320px !important;
 }
 
-button{
+@media(max-width:900px){
 
-    background:#1d8cf8;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:10px;
-    font-size:16px;
-}
+    .graficos{
 
-button:hover{
-
-    opacity:0.8;
+        grid-template-columns:1fr;
+    }
 }
 
 </style>
@@ -243,9 +303,18 @@ OFFLINE
 
 <button onclick="toggleLED()">
 
-Ligar / Desligar LED
+Ligar / Desligar
 
 </button>
+
+<div
+id="estadoLED"
+class="ledDesligado"
+style="margin-top:15px;">
+
+LED DESLIGADO
+
+</div>
 
 </div>
 
@@ -323,7 +392,7 @@ new Chart(ctxTemp, {
 
             data:dadosTemperatura,
 
-            borderWidth:1.2,
+            borderWidth:1,
 
             tension:0.35
         }]
@@ -361,7 +430,7 @@ new Chart(ctxLum, {
 
             data:dadosLuminosidade,
 
-            borderWidth:1.2,
+            borderWidth:1,
 
             tension:0.35
         }]
@@ -378,7 +447,7 @@ new Chart(ctxLum, {
             y:{
 
                 min:0,
-                max:1000
+                max:4095
             }
         }
     }
@@ -476,10 +545,11 @@ async function atualizarDados(){
         );
 
         historicoTemp.unshift(
-        horario +
-        ' → ' +
-        ultimaTemperatura.toFixed(1) +
-        ' °C'
+
+            horario +
+            ' → ' +
+            ultimaTemperatura.toFixed(1)
+            + ' °C'
         );
 
         if(historicoTemp.length > 5){
@@ -516,8 +586,6 @@ async function atualizarDados(){
         'statusESP'
         ).className =
         'offline';
-
-        console.log(erro);
     }
 }
 
@@ -538,6 +606,36 @@ async function toggleLED(){
             estado:ledEstado
         })
     });
+
+    atualizarEstadoLED();
+}
+
+function atualizarEstadoLED(){
+
+    if(ledEstado){
+
+        document.getElementById(
+        'estadoLED'
+        ).innerHTML =
+        'LED LIGADO';
+
+        document.getElementById(
+        'estadoLED'
+        ).className =
+        'ledLigado';
+
+    }else{
+
+        document.getElementById(
+        'estadoLED'
+        ).innerHTML =
+        'LED DESLIGADO';
+
+        document.getElementById(
+        'estadoLED'
+        ).className =
+        'ledDesligado';
+    }
 }
 
 function limparGraficos(){
