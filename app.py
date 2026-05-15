@@ -1,89 +1,69 @@
-from flask import Flask, request, render_template, jsonify, send_file
-import time
-
+from flask import Flask
+from flask import request
+from flask import jsonify
+from flask import render_template
 
 app = Flask(__name__)
 
 dados = {
+
     "temperatura": 0,
-    "umidade": 0,
     "pressao": 0,
     "altitude": 0,
-    "luminosidade": 0,
-    "online": False,
-    "led": False
+    "luminosidade": 0
 }
-
-ultimo_recebimento = 0
 
 estado_led = False
 
 @app.route('/')
+
 def index():
+
     return render_template('index.html')
 
 @app.route('/dados', methods=['POST'])
+
 def receber_dados():
 
     global dados
-    global ultimo_recebimento
 
     dados = request.json
 
-    dados["online"] = True
+    return 'OK'
 
-    dados["led"] = estado_led
+@app.route('/api/dados')
 
-    ultimo_recebimento = time.time()
-
-    return "OK"
-
-@app.route('/ler_dados')
-def ler_dados():
-
-    global dados
-    global ultimo_recebimento
-
-    tempo_atual = time.time()
-
-    if tempo_atual - ultimo_recebimento > 3:
-
-        dados = {
-            "temperatura": 0,
-            "umidade": 0,
-            "pressao": 0,
-            "altitude": 0,
-            "luminosidade": 0,
-            "online": False,
-            "led": False
-        }
+def api_dados():
 
     return jsonify(dados)
 
-@app.route('/ligar_led')
-def ligar_led():
+@app.route('/toggle_led', methods=['POST'])
+
+def toggle_led():
 
     global estado_led
 
-    estado_led = True
+    requisicao = request.json
 
-    return "LED LIGADO"
+    estado_led = requisicao['estado']
 
-@app.route('/desligar_led')
-def desligar_led():
+    return jsonify({
 
-    global estado_led
-
-    estado_led = False
-
-    return "LED DESLIGADO"
+        "estado": estado_led
+    })
 
 @app.route('/estado_led')
+
 def estado_led_api():
 
     return jsonify({
-        "led": estado_led
+
+        "estado": estado_led
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+
+    app.run(
+        host='0.0.0.0',
+        port=5000
+    )
