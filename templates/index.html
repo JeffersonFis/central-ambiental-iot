@@ -4,7 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Central Ambiental IoT</title>
 
@@ -12,234 +14,114 @@
 
 <style>
 
-*{
+body{
+
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Segoe UI, Arial, sans-serif;
-}
-
-body{
-    background:#070b14;
+    background:#0b1220;
     color:white;
-    overflow-x:hidden;
+    font-family:Arial, sans-serif;
 }
 
-.topbar{
+header{
 
-    width:100%;
-    height:80px;
-
-    background:#0f172a;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 30px;
-
-    border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.logo{
-
-    font-size:30px;
+    background:#121b2e;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
     font-weight:bold;
-    color:#38bdf8;
+    border-bottom:2px solid #1e2b45;
+}
+
+.container{
+
+    width:95%;
+    margin:auto;
+    margin-top:20px;
+}
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+
+    background:#121b2e;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+    text-align:center;
+}
+
+.card h2{
+
+    margin:0;
+    font-size:18px;
+    color:#8ca6db;
+}
+
+.valor{
+
+    font-size:42px;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.historico{
+
+    margin-top:20px;
+    text-align:left;
+    font-size:14px;
+    color:#b8c7e0;
+    line-height:1.8;
+}
+
+.status{
+
+    margin-top:30px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.statusBox{
+
+    flex:1;
+    min-width:220px;
+    background:#121b2e;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
 }
 
 .online{
 
-    font-size:20px;
+    color:#00ff88;
     font-weight:bold;
 }
 
-.dashboard{
+.offline{
 
-    display:grid;
-    grid-template-columns:300px 1fr;
-
-    min-height:calc(100vh - 80px);
-}
-
-.sidebar{
-
-    background:#0f172a;
-
-    padding:25px;
-
-    border-right:1px solid rgba(255,255,255,0.08);
-}
-
-.menuTitulo{
-
-    color:#94a3b8;
-    margin-bottom:25px;
-    font-size:18px;
-}
-
-.sensorCard{
-
-    background:#111827;
-
-    border-radius:18px;
-
-    padding:20px;
-
-    margin-bottom:20px;
-
-    border-left:5px solid #38bdf8;
-
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-}
-
-.sensorNome{
-
-    color:#94a3b8;
-    margin-bottom:10px;
-    font-size:16px;
-}
-
-.sensorValor{
-
-    font-size:38px;
-    font-weight:bold;
-}
-
-.main{
-
-    padding:25px;
-}
-
-.botoes{
-
-    display:flex;
-    gap:20px;
-    margin-bottom:25px;
-    flex-wrap:wrap;
-}
-
-.botao{
-
-    border:none;
-    padding:16px 30px;
-    border-radius:14px;
-    color:white;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.botao:hover{
-
-    transform:scale(1.05);
-}
-
-.ligar{
-
-    background:#22c55e;
-
-    box-shadow:0 0 15px rgba(34,197,94,0.4);
-}
-
-.desligar{
-
-    background:#ef4444;
-
-    box-shadow:0 0 15px rgba(239,68,68,0.4);
-}
-
-.limpar{
-
-    background:#3b82f6;
-
-    box-shadow:0 0 15px rgba(59,130,246,0.4);
-}
-
-.csv{
-
-    background:#f59e0b;
-
-    box-shadow:0 0 15px rgba(245,158,11,0.4);
-}
-
-.gridTop{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-    gap:20px;
-
-    margin-bottom:25px;
-}
-
-.miniCard{
-
-    background:#111827;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.miniCard::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:4px;
-
-    background:#38bdf8;
-}
-
-.cardTitulo{
-
-    color:#94a3b8;
-    margin-bottom:12px;
-}
-
-.cardValor{
-
-    font-size:42px;
+    color:red;
     font-weight:bold;
 }
 
 .graficos{
 
+    margin-top:30px;
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
+    grid-template-columns:1fr;
+    gap:30px;
 }
 
-.chartBox{
+.graficoBox{
 
-    background:#111827;
-
+    background:#121b2e;
     border-radius:20px;
-
     padding:20px;
-
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-}
-
-.chartTitulo{
-
-    font-size:20px;
-    margin-bottom:20px;
-    color:#38bdf8;
 }
 
 canvas{
@@ -248,78 +130,21 @@ canvas{
     height:350px !important;
 }
 
-.climaBox{
+button{
 
-    margin-top:25px;
-
-    background:#111827;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-}
-
-.climaIcone{
-
-    font-size:100px;
-}
-
-.climaTexto{
-
-    text-align:right;
-}
-
-.climaStatus{
-
-    font-size:36px;
-    font-weight:bold;
-}
-
-.climaDescricao{
-
-    color:#94a3b8;
+    background:#1d8cf8;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:12px;
+    cursor:pointer;
     margin-top:10px;
-    font-size:18px;
+    font-size:16px;
 }
 
-@media(max-width:1100px){
+button:hover{
 
-    .dashboard{
-
-        grid-template-columns:1fr;
-    }
-
-    .graficos{
-
-        grid-template-columns:1fr;
-    }
-
-    .sidebar{
-
-        border-right:none;
-
-        border-bottom:1px solid rgba(255,255,255,0.08);
-    }
-
-    .climaBox{
-
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .climaTexto{
-
-        text-align:center;
-        margin-top:20px;
-    }
+    opacity:0.8;
 }
 
 </style>
@@ -328,187 +153,127 @@ canvas{
 
 <body>
 
-<div class="topbar">
+<header>
 
-    <div class="logo">
-        🌎 CENTRAL AMBIENTAL IOT
-    </div>
+CENTRAL AMBIENTAL IoT
 
-    <div class="online" id="statusOnline">
-        🔴 OFFLINE
-    </div>
+</header>
 
-</div>
+<div class="container">
 
-<div class="dashboard">
+<div class="cards">
 
-<div class="sidebar">
+<div class="card">
 
-    <div class="menuTitulo">
-        MONITORAMENTO
-    </div>
+<h2>Temperatura</h2>
 
-    <div class="sensorCard">
+<div class="valor"
+id="temperatura">
 
-        <div class="sensorNome">
-            Temperatura
-        </div>
-
-        <div class="sensorValor" id="temp">
-            0°C
-        </div>
-
-    </div>
-
-    <div class="sensorCard">
-
-        <div class="sensorNome">
-            Umidade
-        </div>
-
-        <div class="sensorValor" id="umi">
-            0%
-        </div>
-
-    </div>
-
-    <div class="sensorCard">
-
-        <div class="sensorNome">
-            Pressão
-        </div>
-
-        <div class="sensorValor" id="pre">
-            0
-        </div>
-
-    </div>
-
-    <div class="sensorCard">
-
-        <div class="sensorNome">
-            Luminosidade
-        </div>
-
-        <div class="sensorValor" id="lum">
-            0
-        </div>
-
-    </div>
+-- °C
 
 </div>
 
-<div class="main">
+<div class="historico"
+id="historicoTemperatura">
 
-<div class="botoes">
+</div>
 
-<button class="botao ligar" onclick="ligarLed()">
+</div>
 
-💡 LIGAR LED
+<div class="card">
 
-</button>
+<h2>Pressão</h2>
 
-<button class="botao desligar" onclick="desligarLed()">
+<div class="valor"
+id="pressao">
 
-❌ DESLIGAR LED
+-- hPa
 
-</button>
+</div>
 
-<button class="botao limpar" onclick="limparGraficos()">
+</div>
 
-🗑 LIMPAR GRÁFICOS
+<div class="card">
 
-</button>
+<h2>Altitude</h2>
 
-<button class="botao csv" onclick="baixarCSV()">
+<div class="valor"
+id="altitude">
 
-📥 EXPORTAR CSV
+-- m
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Luminosidade</h2>
+
+<div class="valor"
+id="luminosidade">
+
+--
+
+</div>
+
+</div>
+
+</div>
+
+<div class="status">
+
+<div class="statusBox">
+
+<h2>Status ESP32</h2>
+
+<div id="statusESP"
+class="offline">
+
+OFFLINE
+
+</div>
+
+</div>
+
+<div class="statusBox">
+
+<h2>Controle LED</h2>
+
+<button onclick="toggleLED()">
+
+Ligar / Desligar LED
 
 </button>
 
 </div>
 
-<div class="gridTop">
+<div class="statusBox">
 
-    <div class="miniCard">
+<h2>Gráficos</h2>
 
-        <div class="cardTitulo">
-            ALTITUDE
-        </div>
+<button onclick="limparGraficos()">
 
-        <div class="cardValor" id="alt">
-            0m
-        </div>
+Limpar Gráficos
 
-    </div>
+</button>
 
-    <div class="miniCard">
-
-        <div class="cardTitulo">
-            STATUS AMBIENTAL
-        </div>
-
-        <div class="cardValor" id="statusTexto">
-            NORMAL
-        </div>
-
-    </div>
-
-    <div class="miniCard">
-
-        <div class="cardTitulo">
-            REDE
-        </div>
-
-        <div class="cardValor" id="redeTexto">
-            ONLINE
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 <div class="graficos">
 
-    <div class="chartBox">
+<div class="graficoBox">
 
-        <div class="chartTitulo">
-            Temperatura em Tempo Real
-        </div>
-
-        <canvas id="graficoTemp"></canvas>
-
-    </div>
-
-    <div class="chartBox">
-
-        <div class="chartTitulo">
-            Luminosidade em Tempo Real
-        </div>
-
-        <canvas id="graficoLum"></canvas>
-
-    </div>
+<canvas id="graficoTemperatura"></canvas>
 
 </div>
 
-<div class="climaBox">
+<div class="graficoBox">
 
-    <div class="climaIcone" id="iconeClima">
-        ☀️
-    </div>
-
-    <div class="climaTexto">
-
-        <div class="climaStatus" id="climaStatus">
-            CLIMA ESTÁVEL
-        </div>
-
-        <div class="climaDescricao" id="climaDescricao">
-            Sistema operando normalmente
-        </div>
-
-    </div>
+<canvas id="graficoLuminosidade"></canvas>
 
 </div>
 
@@ -518,250 +283,288 @@ canvas{
 
 <script>
 
-function criarGrafico(id,label,cor){
+let ultimaTemperatura = 0;
+let ultimaPressao = 0;
+let ultimaAltitude = 0;
+let ultimaLuminosidade = 0;
 
-    return new Chart(document.getElementById(id),{
+let ledEstado = false;
 
-        type:'line',
+const labels = [];
 
-        data:{
+const dadosTemperatura = [];
 
-            labels:[],
+const dadosLuminosidade = [];
 
-            datasets:[{
+const historicoTemp = [];
 
-                label:label,
+const ctxTemp =
+document.getElementById(
+'graficoTemperatura'
+).getContext('2d');
 
-                data:[],
+const ctxLum =
+document.getElementById(
+'graficoLuminosidade'
+).getContext('2d');
 
-                borderColor:cor,
+const graficoTemperatura =
+new Chart(ctxTemp, {
 
-                backgroundColor:cor + '22',
+    type:'line',
 
-                borderWidth:3,
+    data:{
 
-                tension:0.45,
+        labels:labels,
 
-                fill:true,
+        datasets:[{
 
-                pointRadius:1
-            }]
-        },
+            label:'Temperatura °C',
 
-        options:{
+            data:dadosTemperatura,
 
-            responsive:true,
+            borderWidth:1.2,
 
-            animation:false,
+            tension:0.35
+        }]
+    },
 
-            plugins:{
+    options:{
 
-                legend:{
+        responsive:true,
 
-                    labels:{
-                        color:'white'
-                    }
-                }
-            },
+        animation:false,
 
-            scales:{
+        scales:{
 
-                x:{
+            y:{
 
-                    ticks:{
-                        color:'#94a3b8',
-                        maxRotation:0
-                    },
-
-                    grid:{
-                        color:'rgba(255,255,255,0.05)'
-                    }
-                },
-
-                y:{
-
-                    ticks:{
-                        color:'#94a3b8'
-                    },
-
-                    grid:{
-                        color:'rgba(255,255,255,0.05)'
-                    }
-                }
+                min:-10,
+                max:85
             }
         }
+    }
+});
+
+const graficoLuminosidade =
+new Chart(ctxLum, {
+
+    type:'line',
+
+    data:{
+
+        labels:labels,
+
+        datasets:[{
+
+            label:'Luminosidade',
+
+            data:dadosLuminosidade,
+
+            borderWidth:1.2,
+
+            tension:0.35
+        }]
+    },
+
+    options:{
+
+        responsive:true,
+
+        animation:false,
+
+        scales:{
+
+            y:{
+
+                min:0,
+                max:1000
+            }
+        }
+    }
+});
+
+async function atualizarDados(){
+
+    try{
+
+        const resposta =
+        await fetch('/api/dados');
+
+        const dados =
+        await resposta.json();
+
+        document.getElementById(
+        'statusESP'
+        ).innerHTML =
+        'ONLINE';
+
+        document.getElementById(
+        'statusESP'
+        ).className =
+        'online';
+
+        if(
+        dados.temperatura !== undefined
+        ){
+
+            ultimaTemperatura =
+            dados.temperatura;
+        }
+
+        if(
+        dados.pressao !== undefined
+        ){
+
+            ultimaPressao =
+            dados.pressao;
+        }
+
+        if(
+        dados.altitude !== undefined
+        ){
+
+            ultimaAltitude =
+            dados.altitude;
+        }
+
+        if(
+        dados.luminosidade !== undefined
+        ){
+
+            ultimaLuminosidade =
+            dados.luminosidade;
+        }
+
+        document.getElementById(
+        'temperatura'
+        ).innerHTML =
+        ultimaTemperatura.toFixed(1)
+        + ' °C';
+
+        document.getElementById(
+        'pressao'
+        ).innerHTML =
+        ultimaPressao.toFixed(1)
+        + ' hPa';
+
+        document.getElementById(
+        'altitude'
+        ).innerHTML =
+        ultimaAltitude.toFixed(1)
+        + ' m';
+
+        document.getElementById(
+        'luminosidade'
+        ).innerHTML =
+        ultimaLuminosidade;
+
+        const agora =
+        new Date();
+
+        const horario =
+        agora.toLocaleTimeString();
+
+        labels.push(horario);
+
+        dadosTemperatura.push(
+        ultimaTemperatura
+        );
+
+        dadosLuminosidade.push(
+        ultimaLuminosidade
+        );
+
+        historicoTemp.unshift(
+        horario +
+        ' → ' +
+        ultimaTemperatura.toFixed(1) +
+        ' °C'
+        );
+
+        if(historicoTemp.length > 5){
+
+            historicoTemp.pop();
+        }
+
+        document.getElementById(
+        'historicoTemperatura'
+        ).innerHTML =
+        historicoTemp.join('<br>');
+
+        if(labels.length > 80){
+
+            labels.shift();
+
+            dadosTemperatura.shift();
+
+            dadosLuminosidade.shift();
+        }
+
+        graficoTemperatura.update();
+
+        graficoLuminosidade.update();
+
+    }catch(erro){
+
+        document.getElementById(
+        'statusESP'
+        ).innerHTML =
+        'OFFLINE';
+
+        document.getElementById(
+        'statusESP'
+        ).className =
+        'offline';
+
+        console.log(erro);
+    }
+}
+
+async function toggleLED(){
+
+    ledEstado = !ledEstado;
+
+    await fetch('/toggle_led',{
+
+        method:'POST',
+
+        headers:{
+            'Content-Type':'application/json'
+        },
+
+        body:JSON.stringify({
+
+            estado:ledEstado
+        })
     });
-}
-
-const graficoTemp = criarGrafico(
-    'graficoTemp',
-    'Temperatura °C',
-    '#38bdf8'
-);
-
-const graficoLum = criarGrafico(
-    'graficoLum',
-    'Luminosidade',
-    '#facc15'
-);
-
-graficoLum.options.scales.y.min = 0;
-graficoLum.options.scales.y.max = 4095;
-
-async function ligarLed(){
-
-    await fetch('/ligar_led');
-}
-
-async function desligarLed(){
-
-    await fetch('/desligar_led');
 }
 
 function limparGraficos(){
 
-    graficoTemp.data.labels = [];
-    graficoTemp.data.datasets[0].data = [];
+    labels.length = 0;
 
-    graficoLum.data.labels = [];
-    graficoLum.data.datasets[0].data = [];
+    dadosTemperatura.length = 0;
 
-    graficoTemp.update();
-    graficoLum.update();
+    dadosLuminosidade.length = 0;
+
+    historicoTemp.length = 0;
+
+    document.getElementById(
+    'historicoTemperatura'
+    ).innerHTML = '';
+
+    graficoTemperatura.update();
+
+    graficoLuminosidade.update();
 }
 
-function baixarCSV(){
-
-    window.location.href = "/baixar_csv";
-}
-
-async function atualizar(){
-
-    const resposta = await fetch('/ler_dados');
-
-    const dados = await resposta.json();
-
-    graficoTemp.options.scales.y.min =
-        dados.temperatura - 5;
-
-    graficoTemp.options.scales.y.max =
-        dados.temperatura + 5;
-
-    if(dados.online){
-
-        document.getElementById('statusOnline').innerHTML =
-            "🟢 ONLINE";
-
-        document.getElementById('redeTexto').innerHTML =
-            "ONLINE";
-
-    }else{
-
-        document.getElementById('statusOnline').innerHTML =
-            "🔴 OFFLINE";
-
-        document.getElementById('redeTexto').innerHTML =
-            "OFFLINE";
-    }
-
-    document.getElementById('temp').innerHTML =
-        dados.temperatura + "°C";
-
-    document.getElementById('umi').innerHTML =
-        dados.umidade + "%";
-
-    document.getElementById('pre').innerHTML =
-        dados.pressao + " hPa";
-
-    document.getElementById('alt').innerHTML =
-        dados.altitude + "m";
-
-    document.getElementById('lum').innerHTML =
-        dados.luminosidade;
-
-    const agora = new Date().toLocaleTimeString();
-
-    graficoTemp.data.labels.push(agora);
-
-    graficoTemp.data.datasets[0].data.push(dados.temperatura);
-
-    graficoLum.data.labels.push(agora);
-
-    graficoLum.data.datasets[0].data.push(dados.luminosidade);
-
-    if(graficoTemp.data.labels.length > 100){
-
-        graficoTemp.data.labels.shift();
-        graficoTemp.data.datasets[0].data.shift();
-
-        graficoLum.data.labels.shift();
-        graficoLum.data.datasets[0].data.shift();
-    }
-
-    graficoTemp.update();
-    graficoLum.update();
-
-    if(!dados.online){
-
-        document.getElementById('iconeClima').innerHTML = "❌";
-
-        document.getElementById('climaStatus').innerHTML =
-            "SEM CONEXÃO";
-
-        document.getElementById('climaDescricao').innerHTML =
-            "ESP32 desconectado";
-
-        document.getElementById('statusTexto').innerHTML =
-            "FALHA";
-    }
-
-    else if(dados.temperatura > 32){
-
-        document.getElementById('iconeClima').innerHTML = "🔥";
-
-        document.getElementById('climaStatus').innerHTML =
-            "TEMPERATURA ALTA";
-
-        document.getElementById('climaDescricao').innerHTML =
-            "Monitoramento necessário";
-
-        document.getElementById('statusTexto').innerHTML =
-            "ALERTA";
-    }
-
-    else if(dados.luminosidade < 200){
-
-        document.getElementById('iconeClima').innerHTML = "🌙";
-
-        document.getElementById('climaStatus').innerHTML =
-            "AMBIENTE ESCURO";
-
-        document.getElementById('climaDescricao').innerHTML =
-            "Baixa luminosidade detectada";
-
-        document.getElementById('statusTexto').innerHTML =
-            "NOTURNO";
-    }
-
-    else{
-
-        document.getElementById('iconeClima').innerHTML = "☀️";
-
-        document.getElementById('climaStatus').innerHTML =
-            "CLIMA ESTÁVEL";
-
-        document.getElementById('climaDescricao').innerHTML =
-            "Sistema operando normalmente";
-
-        document.getElementById('statusTexto').innerHTML =
-            "NORMAL";
-    }
-}
-
-setInterval(atualizar,1000);
+setInterval(
+atualizarDados,
+500
+);
 
 </script>
 
 </body>
-
 </html>
