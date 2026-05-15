@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, jsonify, send_file
 import time
-import csv
-import os
+
 
 app = Flask(__name__)
 
@@ -18,23 +17,6 @@ dados = {
 ultimo_recebimento = 0
 
 estado_led = False
-
-arquivo_csv = "medicoes.csv"
-
-if not os.path.exists(arquivo_csv):
-
-    with open(arquivo_csv, mode='w', newline='') as arquivo:
-
-        escritor = csv.writer(arquivo)
-
-        escritor.writerow([
-            "Hora",
-            "Temperatura",
-            "Umidade",
-            "Pressao",
-            "Altitude",
-            "Luminosidade"
-        ])
 
 @app.route('/')
 def index():
@@ -53,21 +35,6 @@ def receber_dados():
     dados["led"] = estado_led
 
     ultimo_recebimento = time.time()
-
-    hora = time.strftime("%H:%M:%S")
-
-    with open(arquivo_csv, mode='a', newline='') as arquivo:
-
-        escritor = csv.writer(arquivo)
-
-        escritor.writerow([
-            hora,
-            dados["temperatura"],
-            dados["umidade"],
-            dados["pressao"],
-            dados["altitude"],
-            dados["luminosidade"]
-        ])
 
     return "OK"
 
@@ -117,14 +84,6 @@ def estado_led_api():
     return jsonify({
         "led": estado_led
     })
-
-@app.route('/baixar_csv')
-def baixar_csv():
-
-    return send_file(
-        arquivo_csv,
-        as_attachment=True
-    )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
